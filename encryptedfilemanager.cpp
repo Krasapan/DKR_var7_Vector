@@ -3,9 +3,16 @@
 
 #include <fstream>
 
-std::string EncryptedFileManager::encrypt(const std::string& text) {
-    std::string encryptedText = text;
+using namespace std;
 
+// Метод шифрування рядка
+string EncryptedFileManager::encrypt(const string& text) {
+
+    // Копія вхідного рядка
+    string encryptedText = text;
+
+    // Просте Caesar-like шифрування
+    // Кожен символ зміщується на +3 в ASCII
     for (char& character : encryptedText) {
         character += 3;
     }
@@ -14,15 +21,22 @@ std::string EncryptedFileManager::encrypt(const std::string& text) {
 }
 
 void EncryptedFileManager::saveVectorsToFile(
-    const std::vector<Vector>& vectors,
-    const std::string& fileName) {
+    const vector<Vector>& vectors,
+    const string& fileName) {
 
-    std::ofstream outFile(fileName);
+    // Відкриття файлу для запису
+    ofstream outFile(fileName);
 
+    // Перебір усіх векторів у контейнері
     for (const Vector& vector : vectors) {
-        std::string data = vector.toString();
-        outFile << encrypt(data) << std::endl;
+
+        // Перетворення об'єкта у рядок
+        string data = vector.toString();
+
+        // Запис зашифрованого рядка у файл
+        outFile << encrypt(data) << endl;
     }
 
+    // Логування завершення запису
     Logger::log("Vectors were saved to encrypted file.");
 }

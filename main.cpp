@@ -1,81 +1,99 @@
 #include <iostream>
 #include <vector>
 
+// Підключення власних класів
 #include "Vector.h"
 #include "Logger.h"
 #include "EncryptedFileManager.h"
 
+// Дозволяє не писати std:: перед cout, vector тощо
+using namespace std;
+
 int main() {
 
+    // Логування запуску програми
     Logger::log("Program started.");
 
-    // Array of objects
-    std::vector<Vector> vectors;
+    // STL-контейнер для збереження масиву об'єктів Vector
+    vector<Vector> vectors;
 
+    // Додавання елементів у контейнер
     vectors.push_back(Vector(2, 4));
     vectors.push_back(Vector(1, 2));
     vectors.push_back(Vector(3, -3));
     vectors.push_back(Vector(5, 0));
 
-    std::cout << "All vectors:\n";
+    cout << "All vectors:\n";
 
+    // Вивід усіх векторів
     for (const Vector& vector : vectors) {
-        std::cout << vector << std::endl;
+        cout << vector << endl;
     }
 
+    // Створення двох окремих векторів
     Vector firstVector(2, 4);
     Vector secondVector(1, 2);
 
-    std::cout << "\nVector 1: " << firstVector << std::endl;
-    std::cout << "Vector 2: " << secondVector << std::endl;
+    cout << "\nVector 1: " << firstVector << endl;
+    cout << "Vector 2: " << secondVector << endl;
 
-    std::cout << "\nModulus of vector 1 = "
-              << firstVector.calculateModulus()
-              << std::endl;
+    // Обчислення модуля вектора
+    cout << "\nModulus of vector 1 = "
+         << firstVector.calculateModulus()
+         << endl;
 
-    std::cout << "Dot product = "
-              << firstVector.calculateDotProduct(secondVector)
-              << std::endl;
+    // Обчислення скалярного добутку
+    cout << "Dot product = "
+         << firstVector.calculateDotProduct(secondVector)
+         << endl;
 
+    // Додавання векторів
     Vector sumVector = firstVector.add(secondVector);
 
-    std::cout << "Addition result = "
-              << sumVector
-              << std::endl;
+    cout << "Addition result = "
+         << sumVector
+         << endl;
 
+    // Віднімання векторів
     Vector subtractVector = firstVector.subtract(secondVector);
 
-    std::cout << "Subtraction result = "
-              << subtractVector
-              << std::endl;
+    cout << "Subtraction result = "
+         << subtractVector
+         << endl;
 
+    // Множення вектора на число
     Vector scaledVector = firstVector.multiplyByScalar(3);
 
-    std::cout << "Multiplication by scalar = "
-              << scaledVector
-              << std::endl;
+    cout << "Multiplication by scalar = "
+         << scaledVector
+         << endl;
 
+    // Перевірка на колінеарність
     if (firstVector.isCollinear(secondVector)) {
-        std::cout << "Vectors are collinear." << std::endl;
+        cout << "Vectors are collinear." << endl;
     }
     else {
-        std::cout << "Vectors are NOT collinear." << std::endl;
+        cout << "Vectors are NOT collinear." << endl;
     }
 
+    // Перевірка на ортогональність
     if (firstVector.isOrthogonal(secondVector)) {
-        std::cout << "Vectors are orthogonal." << std::endl;
+        cout << "Vectors are orthogonal." << endl;
     }
     else {
-        std::cout << "Vectors are NOT orthogonal." << std::endl;
+        cout << "Vectors are NOT orthogonal." << endl;
     }
 
+    // Запис усіх векторів у зашифрований файл
     EncryptedFileManager::saveVectorsToFile(
         vectors,
         "vectors.txt"
         );
 
+    // Логування завершення програми
     Logger::log("Program finished.");
 
+    cout<<endl;
     system("pause");
 
     return 0;
